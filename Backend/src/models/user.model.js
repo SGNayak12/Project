@@ -10,7 +10,7 @@ const userSchema =new Schema({
   avatar: { type: String,//clodinary url
      required: true},
   coverimage:{
-    type:String //cloudinary url
+  type:String //cloudinary url
   },
   watchHistory:[{type:Schema.Types.ObjectId,ref:"Vedio"}],
   password:{type:String,required:[true,'password is required']},
