@@ -4,13 +4,15 @@ import bcrypt from 'bcrypt'
 
 
 const userSchema =new Schema({
-  username: { type: String, required: true,lowercase:true,trim:true,index:true,unique:true },
+  userName: { type: String, required: true,lowercase:true,trim:true },
+  //index:true,unique:true
   email: { type: String, required: true, unique: true,lowercase:true,trim:true},
-  fullname: { type: String, required: true,trim:true,index:true},
+  fullName: { type: String, required: true,trim:true,index:true},
   avatar: { type: String,//clodinary url
-     required: true},
+    required:true},
   coverimage:{
-  type:String //cloudinary url
+  type:String, //cloudinary url
+
   },
   watchHistory:[{type:Schema.Types.ObjectId,ref:"Vedio"}],
   password:{type:String,required:[true,'password is required']},
@@ -49,6 +51,6 @@ userSchema.methods.generateRefreshToken=function(){
   },process.env.REFRESH_TOKEN_SECRET,{expiresIn:process.env.REFRESH_TOKEN_EXPIRY})
 }
 
-const user=mongoose.model("User",userSchema);
+const User=mongoose.model("User",userSchema);
 
-export {user}
+export {User}
