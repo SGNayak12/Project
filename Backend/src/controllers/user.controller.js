@@ -195,4 +195,9 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
         throw new ApiError(401, error?.message || "Invalid refresh token")
     }
 })
+
+const updatePassword=asyncHandler(async(req,res)=>{
+    
+})
+
 export {registeredUser,loginUser,logOutUser,refreshAccessToken};
