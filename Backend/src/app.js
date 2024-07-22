@@ -12,5 +12,10 @@ app.use(cors({
     origin:process.env.CORS_ORIGIN,
     credentials:true
 }));
-app.use("/api/users", userRouter);
+app.use((req, res, next) => {
+    console.log(`Incoming request: ${req.method} ${req.url}`);
+    next();
+});
+
+app.use("/", userRouter);
 export {app};

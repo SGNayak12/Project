@@ -1,17 +1,15 @@
 {
-  "name": "backend-project",
+  "name": "complex-backend-project",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
-  
-  },
+},
   "keywords": [
     "javascript",
     "backend"
-    
   ],
   "author": "Suhas G Nayak",
   "license": "ISC",

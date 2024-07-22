@@ -1,12 +1,15 @@
-import {Router} from 'express'
+import express from 'express'
 import { registeredUser } from '../controllers/user.controller.js';
 import { upload } from '../middlewares/multer.middleware.js';
 import { loginUser } from '../controllers/user.controller.js';
 import { verifyjwt } from '../middlewares/auth.middleware.js';
 import { logOutUser } from '../controllers/user.controller.js';
-const router=Router();
+import { refreshAccessToken } from '../controllers/user.controller.js';
 
-router.route("/register").post(upload.fields([
+const router=express.Router();
+
+
+router.route("/").post(upload.fields([
      {
         name:"avatar",
         maxCount:1
@@ -15,7 +18,7 @@ router.route("/register").post(upload.fields([
         name:"coverImage",
         maxCount:1
      }
-]),registeredUser);
+]),refreshAccessToken);
 
 router.route('/login').post(loginUser);
 
