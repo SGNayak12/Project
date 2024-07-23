@@ -323,8 +323,8 @@ const deleteImage=asyncHandler(async(req,res)=>{
     const user= await User.findByIdAndUpdate(
         userId,
         {
-            $unset:{
-                avatar:undefined
+            $set:{
+                avatar:" "
             }
         },
         {
