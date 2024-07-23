@@ -5,6 +5,7 @@ import {User} from '../models/user.model.js'
 import {cloudinaryFileUpload} from '../utils/clodinary.js'
 import jwt from 'jsonwebtoken';
 import { json } from "express";
+// import {uploadOnCloudinary} from "../utils/cloudinary.js"
 
 const generateAccessAndRefreshToken=async(userId)=>{
       try {
@@ -257,4 +258,65 @@ const updateAccountDetails=asyncHandler(async(req,res)=>{
 })
 
 
-export {registeredUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails};
+const updateavatarImage=asyncHandler(async(req,res)=>{
+    const avatarLocalPath=req.files?.path;
+
+    if(!avatarLocalPath){
+        throw new ApiError(401,"Avatar file not found");
+    }
+    const avatar=await cloudinaryFileUpload(avatarLocalPath);
+    if(!avatar.url){
+        throw new ApiError(401,"Error while uploading the avatar");
+    }
+
+    const user=User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set:{
+                avatar:avatar.url
+            }
+        },
+        {
+            new:true
+        }
+    ).select("-password");
+ return res
+    .status(200)
+    .json(
+        new ApiResponse(200, user, "Avatar image updated successfully")
+    )
+
+
+})
+
+const updateCoverImage=asyncHandler(async(req,res)=>{
+       const localCoverImagePath=req.files?.path;
+       if(!localCoverImagePath){
+        throw new ApiError(401,"Error in coverImage")
+       }
+
+       const coverImage=await cloudinaryFileUpload(localCoverImagePath);
+
+       if(!coverImage.url){
+        throw new ApiError(401,"Error while uploading");
+       }
+
+       const user=User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set:{
+                coverimage:coverImage.url
+            }
+        },
+        {
+            new:true
+        }
+       ).select("-password");
+
+       res.status(200).json(
+        new ApiResponse(200,{ user},"coverImage updated Successfully")
+       )
+})
+
+
+export {registeredUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails,updateavatarImage};
