@@ -18,7 +18,7 @@ router.route("/").post(upload.fields([
         name:"coverImage",
         maxCount:1
      }
-]),refreshAccessToken);
+]),verifyjwt,refreshAccessToken);
 
 router.route('/login').post(loginUser);
 

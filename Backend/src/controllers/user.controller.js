@@ -4,6 +4,7 @@ import {ApiResponse} from '../utils/ApiResponse.js'
 import {User} from '../models/user.model.js'
 import {cloudinaryFileUpload} from '../utils/clodinary.js'
 import jwt from 'jsonwebtoken';
+import { json } from "express";
 
 const generateAccessAndRefreshToken=async(userId)=>{
       try {
@@ -69,7 +70,7 @@ const registeredUser=asyncHandler(async(req,res,next)=>{
         userName:userName.toLowerCase()
     })
     console.log(user._id);
-    const createdUser=await User.findById(user._id).select("-password")
+    const createdUser=await User.findById(user._id).select("-password");
     if (!createdUser) {
         throw new ApiError(500, "Something went wrong while registering the user")
     }
@@ -197,7 +198,63 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
 })
 
 const updatePassword=asyncHandler(async(req,res)=>{
-    
+    const {oldPassword,newPassword}=req.body;
+    const user=await User.findById(req.user?.id);
+
+    const isPasswordCorrect=user.isPasswordCorrect(oldPassword);
+    if(!isPasswordCorrect){
+         throw new ApiError(401,"Invalid password");
+    }
+    user.password=newPassword;
+    user.save({validateBeforeSave:false});
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,{},"Password updated successfully")
+    )
+
 })
 
-export {registeredUser,loginUser,logOutUser,refreshAccessToken};
+const getCurrentUser=asyncHandler(async(req,res)=>{
+    const user=req.user;
+     return res
+    .status(200)
+    .json(new ApiResponse(
+        200,
+        {user},
+        "User fetched successfully"
+    ))
+
+})
+
+const updateAccountDetails=asyncHandler(async(req,res)=>{
+    const {fullname,email}=req.body;
+    if(!(fullname||email)){
+        throw new ApiError(401,"fields are empty");
+    }
+
+    const user=await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set:{
+                fullname:fullname,
+                email:email
+            }
+            
+        },
+        {
+            new:true
+        }
+    ).select("-password")
+
+    return res
+    .status(200)
+    .send(json(
+        new ApiResponse(200,"Email ans Password updated successfully")
+    ))
+
+})
+
+
+export {registeredUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails};
