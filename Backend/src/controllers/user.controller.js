@@ -257,7 +257,6 @@ const updateAccountDetails=asyncHandler(async(req,res)=>{
 
 })
 
-
 const updateavatarImage=asyncHandler(async(req,res)=>{
     const avatarLocalPath=req.files?.path;
 
@@ -318,5 +317,28 @@ const updateCoverImage=asyncHandler(async(req,res)=>{
        )
 })
 
+//TODO: delete old image
+const deleteImage=asyncHandler(async(req,res)=>{
+    const userId=req.user?._id;
+    const user= await User.findByIdAndUpdate(
+        userId,
+        {
+            $set:{
+                avatar:null
+            }
+        },
+        {
+            new:true
+        }
+    ).select("-password");
 
-export {registeredUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails,updateavatarImage};
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,{user},"Avatar image deleted successfully")
+    )
+})
+
+
+
+export {registeredUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails,updateavatarImage,deleteImage};
