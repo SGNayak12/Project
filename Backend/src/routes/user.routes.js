@@ -7,9 +7,7 @@ import { logOutUser } from '../controllers/user.controller.js';
 import { refreshAccessToken } from '../controllers/user.controller.js';
 
 const router=express.Router();
-
-
-router.route("/").post(upload.fields([
+router.route("/register").post(upload.fields([
      {
         name:"avatar",
         maxCount:1
@@ -18,7 +16,7 @@ router.route("/").post(upload.fields([
         name:"coverImage",
         maxCount:1
      }
-]),verifyjwt,refreshAccessToken);
+]));
 
 router.route('/login').post(loginUser);
 
