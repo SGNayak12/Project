@@ -21,7 +21,7 @@ const generateAccessAndRefreshToken=async(userId)=>{
         throw new ApiError(500,'Something went wrong')
       }
 }
-const registeredUser=asyncHandler(async(req,res,next)=>{
+const registerUser=asyncHandler(async(req,res,next)=>{
     // res.status(200).json({ message: "works fine!" });
     const {fullName,userName,email,password}=req.body;
      if (
@@ -410,4 +410,4 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
         new ApiResponse(200, channel[0], "User channel fetched successfully")
     )
 })
-export {registeredUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails,updateavatarImage,deleteImage,getUserChannelProfile};
+export {registerUser,loginUser,logOutUser,refreshAccessToken,getCurrentUser,updatePassword,updateAccountDetails,updateavatarImage,deleteImage,getUserChannelProfile};
