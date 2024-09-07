@@ -16,7 +16,7 @@ function HomePage() {
 
   useEffect(() => {
     fetchVideos(); 
-  }, []);
+  }, [vidoes]);
 
   return (
     <>

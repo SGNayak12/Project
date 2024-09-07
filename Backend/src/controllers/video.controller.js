@@ -11,7 +11,6 @@ import { Avatar } from "@mui/material"
 
 const getAllVideos = asyncHandler(async (req, res) => {
     const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
-    //TODO: get all videos based on query, sort, pagination
     
     try {
         const getAllVideos=Video.aggregate([
@@ -101,6 +100,7 @@ const publishAVideo = asyncHandler(async (req, res) => {
     })
 
     await video.save();
+    console.log("Video uploaded successfully")
 
     if(!video){
         throw new ApiError(404,"Error while uploading vedio")
@@ -224,7 +224,7 @@ const togglePublishStatus = asyncHandler(async (req, res) => {
     if(!response){
         throw new ApiError(404,"Vedio doesn't exist")
     }
-
+    
     response.isPublished=!response.isPublished;
     await response.save({ValidationBeforeSave:false})
     return res
