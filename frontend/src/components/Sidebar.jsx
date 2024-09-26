@@ -13,7 +13,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`flex-col  bg-white-900 h-screen transition-width duration-300 ${isCollapsed ? 'w-20' : 'w-60'}`}>
+    <div className={`flex-col h-[calc(100%-30px)] bg-white-900 h-screen transition-width duration-300 ${isCollapsed ? 'w-20' : 'w-60'}`}>
       <button 
         onClick={toggleSidebar} 
         className="text-black text-2xl p-3 m-[18px] bg-black-800 font-bold rounded-md focus:outline-none"
