@@ -109,11 +109,6 @@ const publishAVideo = asyncHandler(async (req, res) => {
     return res.status(200).json(
         new ApiResponse(200,video,"Video uploaded successfully")
     )
-
-
-
-
-
 })
 
 const getVideoById = asyncHandler(async (req, res) => {
@@ -174,7 +169,7 @@ const updateVideo = asyncHandler(async (req, res) => {
             new:true
         }
     )
-      if (!response) {
+    if (!response) {
         throw new ApiError(401, "Video details not found.");
     }
 
@@ -208,9 +203,6 @@ const deleteVideo = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(200, deleteResponce, "Video deleted succesfully.")
         );
-    
-
-    
 })
 
 const togglePublishStatus = asyncHandler(async (req, res) => {

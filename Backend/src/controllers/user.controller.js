@@ -24,24 +24,19 @@ const generateAccessAndRefereshTokens = async(userId) =>{
 }
 
 const registerUser = asyncHandler( async (req, res) => {
-   
-
     const {fullName, email, username, password } = req.body
     if (
         [fullName, email, username, password].some((field) => field?.trim() === "")
-    ) {
+    ){
         throw new ApiError(400, "All fields are required")
     }
 
     const existedUser = await User.findOne({
         $or: [{ username }, { email }]
     })
-
-    if (existedUser) {
+    if (existedUser){
         throw new ApiError(409, "User with email or username already exists")
     }
-    //console.log(req.files);
-
     const avatarLocalPath = req.files?.avatar[0]?.path;
     //const coverImageLocalPath = req.files?.coverImage[0]?.path;
 
@@ -89,15 +84,7 @@ const registerUser = asyncHandler( async (req, res) => {
 })
 
 const loginUser = asyncHandler(async (req, res) =>{
-    // req body -> data
-    // username or email
-    //find the user
-    //password check
-    //access and referesh token
-    //send cookie
-
     const {email, username, password} = req.body || {}
-     console.log(email);
 
     if (!username && !email) {
         throw new ApiError(400, "username or email is required")
@@ -110,7 +97,6 @@ const loginUser = asyncHandler(async (req, res) =>{
     // Here is an alternative of above code based on logic discussed in video:
     // if (!(username || email)) {
     //     throw new ApiError(400, "username or email is required")
-        
     // }
 
     const user = await User.findOne({
@@ -176,6 +162,7 @@ const logoutUser = asyncHandler(async(req, res) => {
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User logged Out"))
 })
+
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
