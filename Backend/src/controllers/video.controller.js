@@ -96,7 +96,6 @@ const publishAVideo = asyncHandler(async (req, res) => {
           duration:vedio.duration,
           isPublished:true,
           owner:req.user?._id
-
     })
 
     await video.save();
