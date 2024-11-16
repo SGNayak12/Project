@@ -1,20 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import VideoList from './components/VideoList';
-import VideoPlayer from './components/VideoPlayer';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
-    <Router>
-      <div className="App">
-        {/* <h1 className="text-3xl text-center mt-8"></h1> */}
-        <Routes>
-          <Route path="/" element={<VideoList />} />
-          <Route path="/video/:videoId" element={<VideoPlayer />} />
-        </Routes>
-      </div>
-    </Router>
-  );
+    <>
+      <h1 className='text-blue-600'>Vedio streaming application</h1>
+    </>
+  )
 }
 
-export default App;
+export default App
