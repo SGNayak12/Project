@@ -1,26 +1,24 @@
 // src/App.js
 // import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Upload from './pages/Upload';
-import SignIn from './pages/SignIn';
+// import Sidebar from './components/SideBar';
+// import Header from './components/Header';
+// import Footer from './components/Footer';
+// import Home from './pages/Home';
+// import Upload from './pages/Upload';
+// import SignIn from './pages/SignIn';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow container mx-auto py-8">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/upload" element={<Upload />} />
-            <Route path="/login" element={<SignIn />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        {/* Main Layout with Sidebar */}
+        <Route path="/" element={<MainLayout />}>
+          {/* Define routes inside the main layout */}
+         
+        </Route>
+      </Routes>
     </Router>
   );
 }
