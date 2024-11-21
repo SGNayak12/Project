@@ -100,11 +100,9 @@ const publishAVideo = asyncHandler(async (req, res) => {
 
     await video.save();
     console.log("Video uploaded successfully")
-
     if(!video){
         throw new ApiError(404,"Error while uploading vedio")
     }
-
     return res.status(200).json(
         new ApiResponse(200,video,"Video uploaded successfully")
     )
