@@ -1,5 +1,5 @@
 // src/components/VideoUploadForm.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 
 const VideoUpload = () => {
   const [title, setTitle] = useState("");

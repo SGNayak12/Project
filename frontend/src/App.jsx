@@ -1,20 +1,28 @@
-import { useState } from 'react'
-import VideoList from './components/VideoList'
-import Vedioupload from './components/Vedioupload'
-import './index.css'
-import { Route,Router,Routes } from 'react-router-dom'
-
+// src/App.js
+// import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Upload from './pages/Upload';
+import SignIn from './pages/SignIn';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-  
-     <VideoList/>
-    
-    </>
-  )
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow container mx-auto py-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/upload" element={<Upload />} />
+            <Route path="/login" element={<SignIn />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
